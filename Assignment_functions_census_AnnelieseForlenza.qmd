@@ -1,6 +1,6 @@
 ---
 title: "R Assignment - Initial Functions and APIs"
-author: "Your Name Here"
+author: "Anneliese Forlenza"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -30,9 +30,12 @@ options(tigris_class = "sf")
 
 ```{r}
 
+sum_two_numbers <- function(number_one, number_two){
+  sum <- number_one + number_two
+  return(sum)
+}
 
-
-
+sum_two_numbers(100, 175)
 
 ```
 
@@ -40,8 +43,12 @@ options(tigris_class = "sf")
 
 ```{r}
 
+the_mean <- function(mynumbers){
+  my_mean <- mean(mynumbers)
+  return(my_mean)
+}
 
-
+the_mean(c(1,2,3,4))
 
 
 
@@ -52,9 +59,12 @@ options(tigris_class = "sf")
 
 ```{r}
 
+the_mean2 <- function(mynumbers){
+  my_mean <- mean(mynumbers)
+  return(paste0("The mean is", my_mean))
+}
 
-
-
+the_mean2(c(1,2,3,4))
 
 ```
 
@@ -72,10 +82,14 @@ head(flights)
 ```{r}
 
 
+filter_by_airport <- function(airportcode){
+  results <- flights %>% 
+    filter(origin == airportcode) 
+    return(results)
+}
 
 
-
-
+filter_by_airport("LGA")
 
 ```
 
@@ -87,7 +101,15 @@ head(flights)
 
 ```{r}
 
+filter_by_airport <- function(airportcode){
+  results <- flights %>% 
+    filter(origin == airportcode) %>% 
+    count(carrier, sort = TRUE)
+    return(results)
+}
 
+
+filter_by_airport("LGA")
 
 
 
