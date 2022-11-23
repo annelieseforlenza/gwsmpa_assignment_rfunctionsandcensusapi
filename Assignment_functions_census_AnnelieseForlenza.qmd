@@ -21,6 +21,7 @@ library(janitor)
 library(writexl)
 library(here)
 options(tigris_class = "sf")
+library(dplyr)
 
 ```
 
@@ -132,7 +133,8 @@ Uncomment the code below and run it to install your API key on your computer. Ag
 
 ```{r}
 
-# census_api_key("PUTYOURAPIKEYHERE", install=TRUE)
+#census_api_key("49251e422ca4e3850362f6f35401e20cdcae9c08", install=TRUE)
+readRenviron("~/.Renviron")
 
 
 ```
@@ -149,7 +151,9 @@ Now, using the `get_acs()` function in tidycensus, pull down the state-level dat
 
 ```{r}
 
-
+state_variables_w_mapping <- get_acs(geography = "state",
+        variables = myvars,
+        geometry = TRUE)
 
 
 
@@ -160,7 +164,8 @@ To make things a little cleaner, use the `select()` function to remove the three
 ```{r}
 
 
-
+state_vars_w_mapping <- state_variables_w_mapping %>% 
+  select(-ends_with("M"))
 
 
 ```
@@ -168,7 +173,6 @@ To make things a little cleaner, use the `select()` function to remove the three
 Now, using the `mutate()` function, create a new column that contains the percentage of people with a bachelor's or higher degree for each state. Remember that because the Census counts people with a bachelor's only vs. a graduate degree separately, you'll need to combine those categories before making your calculation against the total population column.
 
 ```{r}
-
 
 
 
