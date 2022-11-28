@@ -151,7 +151,7 @@ Now, using the `get_acs()` function in tidycensus, pull down the state-level dat
 
 ```{r}
 
-state_variables_w_mapping <- get_acs(geography = "state",
+state_variables_w_mapping <- get_acs(?,
         variables = myvars,
         geometry = TRUE)
 
@@ -174,7 +174,12 @@ Now, using the `mutate()` function, create a new column that contains the percen
 
 ```{r}
 
+add_bach_or_higher <- census_data %>%
+  mutate(bach_or_higher = (education_bachelors + education_gradprofess))
 
+pct_bach_or_higher <- add_bach_or_higher %>% 
+  mutate(pct_higher_ed = round_half_up(bach_or_higher / education_total * 100, 2))
+  
 
 
 ```
